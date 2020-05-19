@@ -1,0 +1,3 @@
+PUSH 127
+PUSH -128
+SUB

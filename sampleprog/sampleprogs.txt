@@ -1,0 +1,20 @@
+Test Programs:
+add.asm - Add two numbers and print the result
+addoverflow.asm - Add two numbers that cause overflow
+addunderflow.asm - Add two number that cause underflow
+discriminant.asm - Computes and prints the discriminant (b^2 - 4ac) of 2x^2 + 4x + 10
+helloworld.asm - Print "Hello World!"
+mul.asm - Multiply two numbers and print the result
+muloverflow.asm - Multiply two numbers that cause overflow
+mulunderflow.asm - Multiple two numbers that cause underflow
+popempty.asm - Pop from an empty stack
+printempty.asm - Print a number from an empty stack
+promptadd.asm - Prompt the user for 2 numbers, add them together, and print the result
+push.asm - Push a value
+pushpop.asm - Push then pop
+pushprint.asm - Push then print the value
+pushprintneg.asm - Push and print a negative value
+sub.asm - Subtract two numbers and print the result
+suboverflow.asm - Subtract two numbers that cause overflow
+subunderflow.asm - Subtract two numbers that cause underflow
+swap.asm - Pushes values on the stack, swaps and prints them
