@@ -30,6 +30,7 @@ int8_t stack_pop(stack* st, int* exit_code){
         free(st->top->next);
         st->top->next = NULL;
     } else {
+        free(st->bottom);
         st->bottom = NULL;
     }
     (*exit_code) = 0;
