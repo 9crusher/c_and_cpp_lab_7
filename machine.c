@@ -72,7 +72,7 @@ int swap(machine* mac){
     } else {
         printf("ERROR: stack must have two values to swap\n");
     }
-    return 0;
+    return exitcode;
 }
 
 int input(machine* mac){
