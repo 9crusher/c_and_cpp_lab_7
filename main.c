@@ -6,6 +6,7 @@
  */
  
 #include "machine.h"
+#include "stack.h"
 #include <stdlib.h>  // Needed for malloc and free
 #include <stdint.h>  // Needed for uint8_t and int8_t
 #include <stdio.h>   // Needed for input and output functions

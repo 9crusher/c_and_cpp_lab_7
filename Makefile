@@ -7,13 +7,13 @@ all: main.o assembler.o stack.o machine.o
 	$(CXX) -o assembler assembler.o
 
 
-main.o: main.c
+main.o: main.c machine.h stack.h
 	$(CC) $(CFLAGS) main.c
 	
-stack.o: stack.c 
+stack.o: stack.c stack.h
 	$(CC) $(CFLAGS) stack.c
 	
-machine.o: machine.c 
+machine.o: machine.c machine.h stack.h
 	$(CC) $(CFLAGS) machine.c
 
 assembler.o: assembler.cpp
