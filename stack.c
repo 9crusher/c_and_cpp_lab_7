@@ -1,7 +1,8 @@
 #include "stack.h"
 #include <stdint.h>
 #include <stddef.h>
-#include <stdlib.h>
+#include <stdlib.h> // used for malloc
+
 void stack_push(stack* st, int8_t value){
     node* newNode = (node*)malloc(sizeof(node));
     newNode->value = value;
@@ -25,8 +26,12 @@ int8_t stack_pop(stack* st, int* exit_code){
     int8_t value = st->top->value;
     // set top to prev and free previous top
     st->top = st->top->prev;
-    free(st->top->next);
-    st->top->next = NULL;
+    if(st->top != NULL){
+        free(st->top->next);
+        st->top->next = NULL;
+    } else {
+        st->bottom = NULL;
+    }
     (*exit_code) = 0;
     return value;
 }
