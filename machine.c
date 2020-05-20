@@ -23,16 +23,6 @@ void delete_stack(stack* st){
     free(st);
 }
 
-
-int8_t safe_cast(int input, int* exitcode){
-    if(input > 127 || input < -128){
-        *exitcode = -1;
-        return -1;
-    }
-    *exitcode = 0;
-    return (int8_t) input;
-}
-
 int run_command(machine* mac, int8_t opcode, int8_t value){
     switch(opcode){
         case 1:
@@ -94,7 +84,14 @@ int input(machine* mac){
         printf("Input value must be a number");
         return -1;
     }
-    int8_t cast_input = safe_cast(input, &exitcode);
+    if(input > 127){
+        printf("Input too large, must be less than or equal to 127\n");
+        return -1;
+    } else if(input < -128){
+        printf("Input too small, must be greater than or equal to -128\n");
+        return -1;
+    }
+    int8_t cast_input = (int8_t)input;
     if(exitcode == -1){
         printf("Number too large; input must be a byte\n");
         return -1;
