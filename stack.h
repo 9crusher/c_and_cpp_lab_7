@@ -10,7 +10,6 @@ typedef struct node {
 
 typedef struct {
     node* top;
-    node* bottom;
 } stack;
 
 

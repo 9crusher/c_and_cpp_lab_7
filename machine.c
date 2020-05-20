@@ -7,7 +7,6 @@
 
 stack* create_stack(){
      stack* st = (stack*)malloc(sizeof(stack));
-     st->bottom = NULL;
      st->top = NULL;
      return st;
 }
@@ -131,7 +130,7 @@ int add(machine* mac){
     return 0;
 }
 int sub(machine* mac){
-        int exitcode = 0;
+    int exitcode = 0;
     int8_t value_one = stack_pop(mac->st, &exitcode);
     int8_t value_two = stack_pop(mac->st, &exitcode);
     if(exitcode == -1){
@@ -152,7 +151,7 @@ int sub(machine* mac){
     return 0;
 }
 int mul(machine* mac){
-        int exitcode = 0;
+    int exitcode = 0;
     int8_t value_one = stack_pop(mac->st, &exitcode);
     int8_t value_two = stack_pop(mac->st, &exitcode);
     if(exitcode == -1){

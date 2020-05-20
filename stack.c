@@ -10,7 +10,6 @@ void stack_push(stack* st, int8_t value){
     newNode->next = NULL;
     if(st->top == NULL){
         st->top = newNode;
-        st->bottom = newNode;
     } else {
         newNode->prev = st->top;
         st->top->next = newNode;
@@ -24,14 +23,11 @@ int8_t stack_pop(stack* st, int* exit_code){
         return -1;
     }
     int8_t value = st->top->value;
-    // set top to prev and free previous top
+    node* old_top = st->top;
     st->top = st->top->prev;
+    free(old_top);
     if(st->top != NULL){
-        free(st->top->next);
         st->top->next = NULL;
-    } else {
-        free(st->bottom);
-        st->bottom = NULL;
     }
     (*exit_code) = 0;
     return value;
@@ -47,11 +43,11 @@ int8_t stack_peek(stack* st, int* exit_code){
 }
 
 void free_vals(stack* st){
-    node* current = st->bottom;
-    node* next = NULL;
+    node* current = st->top;
+    node* prev = NULL;
     while(current != NULL){
-        next = current->next;
+        prev = current->prev;
         free(current);
-        current = next;
+        current = prev;
     }
 }
