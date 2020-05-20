@@ -1,9 +1,10 @@
 /*
  * Course: CS2040
  * Pile of Instructions - Entry point function
- * Name: <REPLACE WITH YOUR NAME>
+ * Name: Alex Ruchti
  * Created: 05/06/2020
  */
+ 
 #include "machine.h"
 #include <stdlib.h>  // Needed for malloc and free
 #include <stdint.h>  // Needed for uint8_t and int8_t

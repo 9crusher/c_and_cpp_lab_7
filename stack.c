@@ -1,6 +1,12 @@
+/*
+ * Course: CS2040
+ * Pile of Instructions - Stack functions for pilemachine
+ * Name: Alex Ruchti
+ * Created: 05/20/2020
+ */
+
 #include "stack.h"
-#include <stdint.h>
-#include <stddef.h>
+#include <stdint.h> // int8_t use
 #include <stdlib.h> // used for malloc
 
 void stack_push(stack* st, int8_t value){

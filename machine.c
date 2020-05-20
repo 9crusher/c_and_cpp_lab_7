@@ -1,8 +1,15 @@
+/*
+ * Course: CS2040
+ * Pile of Instructions - Pilemachine functions
+ * Name: Alex Ruchti
+ * Created: 05/20/2020
+ */
+
 #include "stack.h"
 #include "machine.h"
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <stdint.h> // int8_t use
+#include <stdlib.h> // free and malloc
+#include <stdio.h>  //printf
 
 
 stack* create_stack(){

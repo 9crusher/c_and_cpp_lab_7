@@ -1,7 +1,15 @@
+/*
+ * Course: CS2040
+ * Pile of Instructions - Header for machine
+ * Name: Alex Ruchti
+ * Created: 05/20/2020
+ */
+
 #ifndef MACHINE_H
 #define MACHINE_H
+
 #include "stack.h"
-#include <stdint.h>
+#include <stdint.h> // int8_t use
 
 typedef struct {
     stack* st;
