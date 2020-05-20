@@ -11,18 +11,28 @@
 #include <stdlib.h> // free and malloc
 #include <stdio.h>  //printf
 
-
+/*
+ * Creates a stack in memory and returns
+ * a pointer to it
+ */
 stack* create_stack(){
      stack* st = (stack*)malloc(sizeof(stack));
      st->top = NULL;
      return st;
 }
 
+/*
+ * Removes the stack from memory
+ */
 void delete_stack(stack* st){
     free_vals(st);
     free(st);
 }
 
+/*
+ * Runs a pilemachine command.
+ * Returns -1 on error
+ */
 int run_command(machine* mac, int8_t opcode, int8_t value){
     switch(opcode){
         case 1:
@@ -49,10 +59,17 @@ int run_command(machine* mac, int8_t opcode, int8_t value){
     return -1;
 }
 
+/*
+ * Runs the push pilemachine command
+ */
 void push(machine* mac, int8_t value){
     stack_push(mac->st, value);
 }
 
+/*
+ * Runs the pop pilemachine command.
+ * returns -1 on error else 0
+ */
 int pop(machine* mac){
     int exitcode = 0;
     stack_pop(mac->st, &exitcode);
@@ -62,6 +79,10 @@ int pop(machine* mac){
     return exitcode;
 }
 
+/*
+ * Runs the swap pilemachine command.
+ * returns -1 on error else 0
+ */
 int swap(machine* mac){
     int exitcode = 0;
     int8_t value_one = stack_pop(mac->st, &exitcode); 
@@ -75,6 +96,10 @@ int swap(machine* mac){
     return exitcode;
 }
 
+/*
+ * Runs the input pilemachine command.
+ * returns -1 on error else 0
+ */
 int input(machine* mac){
     int input = 0;
     int exitcode = 0;
@@ -100,6 +125,10 @@ int input(machine* mac){
     return 0;
 }
 
+/*
+ * Runs the print num pilemachine command.
+ * returns -1 on error else 0
+ */
 int print_num(machine* mac){
     int exitcode = 0;
     int8_t stack_byte = stack_peek(mac->st, &exitcode);
@@ -111,12 +140,20 @@ int print_num(machine* mac){
     return 0;
 }
 
+/*
+ * Runs the print char pilemachine command.
+ * returns -1 on error else 0
+ */
 int print_char(machine* mac, int8_t value){
     char byte_char = (char)value;
     printf("%c \n", byte_char);
     return 0;
 }
 
+/*
+ * Runs the add pilemachine command.
+ * returns -1 on error else 0
+ */
 int add(machine* mac){
     int exitcode = 0;
     int8_t value_one = stack_pop(mac->st, &exitcode);
@@ -138,6 +175,11 @@ int add(machine* mac){
     stack_push(mac->st, cast_result);
     return 0;
 }
+
+/*
+ * Runs the sub pilemachine command.
+ * returns -1 on error else 0
+ */
 int sub(machine* mac){
     int exitcode = 0;
     int8_t value_one = stack_pop(mac->st, &exitcode);
@@ -159,6 +201,11 @@ int sub(machine* mac){
     stack_push(mac->st, cast_result);
     return 0;
 }
+
+/*
+ * Runs the mul pilemachine command.
+ * returns -1 on error else 0
+ */
 int mul(machine* mac){
     int exitcode = 0;
     int8_t value_one = stack_pop(mac->st, &exitcode);

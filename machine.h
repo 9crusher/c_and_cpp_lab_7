@@ -26,16 +26,9 @@ typedef struct {
 stack* create_stack();
 
 /*
- * Remooves the stack from memory
+ * Removes the stack from memory
  */
 void delete_stack(stack* st);
-
-/*
- * Casts an int to a byte.
- * If there is an error, exit code 
- * is set to -1
- */
-int8_t safe_cast(int input, int* exitcode);
 
 /*
  * Runs a pilemachine command
