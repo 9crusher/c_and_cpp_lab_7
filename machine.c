@@ -66,6 +66,9 @@ void push(machine* mac, int8_t value){
 int pop(machine* mac){
     int exitcode = 0;
     stack_pop(mac->st, &exitcode);
+    if(exitcode == -1){
+        printf("ERROR: empty stack, cannot pop value\n");
+    }
     return exitcode;
 }
 
@@ -76,6 +79,8 @@ int swap(machine* mac){
     if(exitcode != -1){
         stack_push(mac->st, value_one);
         stack_push(mac->st, value_two);
+    } else {
+        printf("ERROR: stack must have two values to swap\n");
     }
     return 0;
 }
@@ -102,7 +107,7 @@ int print_num(machine* mac){
     int exitcode = 0;
     int8_t stack_byte = stack_peek(mac->st, &exitcode);
     if(exitcode == -1){
-        printf("Nothing on stack\n");
+        printf("Cannot print: Nothing on stack\n");
         return -1;
     }
     printf("%d \n", (int)stack_byte);
@@ -120,7 +125,7 @@ int add(machine* mac){
     int8_t value_one = stack_pop(mac->st, &exitcode);
     int8_t value_two = stack_pop(mac->st, &exitcode);
     if(exitcode == -1){
-        printf("There were fewer than two values on stack\n");
+        printf("Error: Cannot add fewer than two values on stack\n");
         return -1;
     }
     int op_result = value_one + value_two;
@@ -141,7 +146,7 @@ int sub(machine* mac){
     int8_t value_one = stack_pop(mac->st, &exitcode);
     int8_t value_two = stack_pop(mac->st, &exitcode);
     if(exitcode == -1){
-        printf("There were fewer than two values on stack\n");
+        printf("Error: Cannot subtract fewer than two values on stack\n");
         return -1;
     }
     int op_result = value_one - value_two;
@@ -162,7 +167,7 @@ int mul(machine* mac){
     int8_t value_one = stack_pop(mac->st, &exitcode);
     int8_t value_two = stack_pop(mac->st, &exitcode);
     if(exitcode == -1){
-        printf("There were fewer than two values on stack\n");
+        printf("Error: Cannot multiply fewer than two values on stack\n");
         return -1;
     }
     int op_result = value_one * value_two;
