@@ -8,7 +8,9 @@ typedef struct {
 } machine;
 stack* create_stack();
 void delete_stack(stack* st);
-int push(machine* mac, int8_t value);
+int8_t safe_cast(int input, int* exitcode);
+int run_command(machine* mac, int8_t opcode, int8_t value);
+void push(machine* mac, int8_t value);
 int pop(machine* mac);
 int swap(machine* mac);
 int input(machine* mac);

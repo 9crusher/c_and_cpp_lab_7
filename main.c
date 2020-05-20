@@ -4,7 +4,7 @@
  * Name: <REPLACE WITH YOUR NAME>
  * Created: 05/06/2020
  */
-
+#include "machine.h"
 #include <stdint.h>  // Needed for uint8_t and int8_t
 #include <stdio.h>   // Needed for input and output functions
 
@@ -48,19 +48,23 @@ int main(int argc, char **argv) {
     //
     // fread returns 0 when the end of file is reached or if there was an error
     struct instruction_t next_instruction;
-    while(fread(&next_instruction, sizeof(struct instruction_t), 1, myfile)) {
-        printf("Instruction: OPCODE: %d VALUE: %d\n",
-            next_instruction.op_code, next_instruction.value);
+    int exitcode = 1;
+    machine mac;
+    mac.st = create_stack();
+    
+    while(fread(&next_instruction, sizeof(struct instruction_t), 1, myfile) && exitcode != -1) {
+        exitcode = run_command(&mac, next_instruction.op_code, next_instruction.value);
     }
     // Check if there was an error reading the file with ferror
     if(ferror(myfile)) {
         printf("ERROR: Unable to read from %s\n", argv[1]);
-        
+        delete_stack(mac.st);
         // Need to close the file even though there was an error
         fclose(myfile);
         return 1;
     }
     
+    delete_stack(mac.st);
     // Step 4: Made it to the end of the file
     // Close the file and return
     fclose(myfile);

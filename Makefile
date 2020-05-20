@@ -3,17 +3,17 @@ CC=gcc
 CXX=g++
 
 all: main.o assembler.o stack.o machine.o
-	$(CC) -o pilemachine main.o
+	$(CC) -o pilemachine main.o machine.o stack.o
 	$(CXX) -o assembler assembler.o
 
 
 main.o: main.c
 	$(CC) $(CFLAGS) main.c
 	
-stack.o: stack.c
+stack.o: stack.c 
 	$(CC) $(CFLAGS) stack.c
 	
-machine.o: machine.c
+machine.o: machine.c 
 	$(CC) $(CFLAGS) machine.c
 
 assembler.o: assembler.cpp

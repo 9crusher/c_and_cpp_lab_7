@@ -2,6 +2,7 @@
 #include "machine.h"
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 
 stack* create_stack(){
@@ -15,4 +16,161 @@ void delete_stack(stack* st){
     free_vals(st);
     free(st);
 }
+
+
+int8_t safe_cast(int input, int* exitcode){
+    if(input > 127 || input < -128){
+        *exitcode = -1;
+        return -1;
+    }
+    *exitcode = 0;
+    return (int8_t) input;
+}
+
+int run_command(machine* mac, int8_t opcode, int8_t value){
+    int exitcode = 0;
+    switch(opcode){
+        case 1:
+            push(mac, value);
+            return 0;
+        case 2:
+            return pop(mac);
+        case 3:
+            return swap(mac);
+        case 4:
+            return input(mac);
+        case 5:
+            return print_num(mac);
+        case 6:
+            return print_char(mac, value);
+        case 7:
+            return add(mac);
+        case 8:
+            return sub(mac);
+        case 9:
+            return mul(mac);
+    }
+    return exitcode;
+}
+
+void push(machine* mac, int8_t value){
+    stack_push(mac->st, value);
+}
+
+int pop(machine* mac){
+    int exitcode = 0;
+    stack_pop(mac->st, &exitcode);
+    return exitcode;
+}
+
+int swap(machine* mac){
+    int exitcode = 0;
+    int8_t value_one = stack_pop(mac->st, &exitcode);
+    int8_t value_two = stack_pop(mac->st, &exitcode);
+    if(exitcode != -1){
+        stack_push(mac->st, value_one);
+        stack_push(mac->st, value_two);
+    }
+    return exitcode;
+}
+
+int input(machine* mac){
+    int input = 0;
+    int exitcode = 0;
+    printf("Please enter desired byte value\n");
+    int num_scanned_items = scanf("%d", &input);
+    if(num_scanned_items != 1){
+        printf("Input value must be a number");
+        return -1;
+    }
+    int8_t cast_input = safe_cast(input, &exitcode);
+    if(exitcode == -1){
+        printf("Number too large; input must be a byte\n");
+        return -1;
+    }
+    stack_push(mac->st, cast_input);
+    return 0;
+}
+
+int print_num(machine* mac){
+    int exitcode = 0;
+    int8_t stack_byte = stack_peek(mac->st, &exitcode);
+    if(exitcode == -1){
+        printf("Nothing on stack\n");
+        return -1;
+    }
+    printf("%d \n", (int)stack_byte);
+    return 0;
+}
+
+int print_char(machine* mac, int8_t value){
+    char byte_char = (char)value;
+    printf("%c \n", byte_char);
+    return 0;
+}
+
+int add(machine* mac){
+    int exitcode = 0;
+    int8_t value_one = stack_pop(mac->st, &exitcode);
+    int8_t value_two = stack_pop(mac->st, &exitcode);
+    if(exitcode == -1){
+        printf("There were fewer than two values on stack\n");
+        return -1;
+    }
+    int op_result = value_one + value_two;
+    if(op_result > 127){
+        printf("Overflow: operation resulted in overflow\n");
+        return -1;
+    }
+    if(op_result < -128){
+        printf("Underflow: operation resulted in underflow\n");
+        return -1;
+    } 
+    int8_t cast_result = (int8_t)op_result;
+    stack_push(mac->st, cast_result);
+    return 0;
+}
+int sub(machine* mac){
+        int exitcode = 0;
+    int8_t value_one = stack_pop(mac->st, &exitcode);
+    int8_t value_two = stack_pop(mac->st, &exitcode);
+    if(exitcode == -1){
+        printf("There were fewer than two values on stack\n");
+        return -1;
+    }
+    int op_result = value_one - value_two;
+    if(op_result > 127){
+        printf("Overflow: operation resulted in overflow\n");
+        return -1;
+    }
+    if(op_result < -128){
+        printf("Underflow: operation resulted in underflow\n");
+        return -1;
+    } 
+    int8_t cast_result = (int8_t)op_result;
+    stack_push(mac->st, cast_result);
+    return 0;
+}
+int mul(machine* mac){
+        int exitcode = 0;
+    int8_t value_one = stack_pop(mac->st, &exitcode);
+    int8_t value_two = stack_pop(mac->st, &exitcode);
+    if(exitcode == -1){
+        printf("There were fewer than two values on stack\n");
+        return -1;
+    }
+    int op_result = value_one * value_two;
+    if(op_result > 127){
+        printf("Overflow: operation resulted in overflow\n");
+        return -1;
+    }
+    if(op_result < -128){
+        printf("Underflow: operation resulted in underflow\n");
+        return -1;
+    } 
+    int8_t cast_result = (int8_t)op_result;
+    stack_push(mac->st, cast_result);
+    return 0;
+}
+
 
