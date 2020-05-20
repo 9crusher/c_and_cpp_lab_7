@@ -55,7 +55,7 @@ int run_command(machine* mac, int8_t opcode, int8_t value){
         case 9:
             return mul(mac);
     }
-    printf("Could not run specified command");
+    printf("ERROR: Invalid op code");
     return -1;
 }
 
