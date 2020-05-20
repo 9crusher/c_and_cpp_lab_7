@@ -28,7 +28,6 @@ int8_t safe_cast(int input, int* exitcode){
 }
 
 int run_command(machine* mac, int8_t opcode, int8_t value){
-    int exitcode = 0;
     switch(opcode){
         case 1:
             push(mac, value);
@@ -50,7 +49,8 @@ int run_command(machine* mac, int8_t opcode, int8_t value){
         case 9:
             return mul(mac);
     }
-    return exitcode;
+    printf("Could not run specified command");
+    return -1;
 }
 
 void push(machine* mac, int8_t value){
@@ -65,13 +65,13 @@ int pop(machine* mac){
 
 int swap(machine* mac){
     int exitcode = 0;
-    int8_t value_one = stack_pop(mac->st, &exitcode);
+    int8_t value_one = stack_pop(mac->st, &exitcode); 
     int8_t value_two = stack_pop(mac->st, &exitcode);
     if(exitcode != -1){
         stack_push(mac->st, value_one);
         stack_push(mac->st, value_two);
     }
-    return exitcode;
+    return 0;
 }
 
 int input(machine* mac){
